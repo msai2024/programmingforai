@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Matcher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Resume Matcher</h1>
+        <p>Discover your perfect job match by simply uploading your resume.</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/jobs">View Job Listings</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="upload-section">
+            <h2>Get Started Now</h2>
+            <p>Upload your resume and let our advanced matching system find the best job for you:</p>
+            <form action="/upload-resume" method="post" enctype="multipart/form-data" class="upload-form">
+                <input type="file" name="resume" id="file" class="inputfile" required>
+                <label for="file">Choose a file</label>
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+        {% if matches %}
+            <section class="matches-section">
+                <h2>Top Job Matches</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>Salary Range</th>
+                            <th>Role</th>
+                            <th>Similarity Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matches %}
+                            <tr>
+                                <td>{{ match['Job Title'] }}</td>
+                                <td>{{ match['Company'] }}</td>
+                                <td>{{ match['Salary Range'] }}</td>
+                                <td>{{ match['Role'] }}</td>
+                                <td>{{ '%.2f' | format(match['Similarity Score']) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        {% endif %}
+    </main>
+    <footer>
+        <p>© 2024 Resume Matcher. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Listings</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Listings</h1>
+        <form action="/jobs" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Search jobs..." value="{{ search }}" class="search-input">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+        <div class="jobs-container">
+            {% for job in jobs %}
+                <div class="job-box">
+                    <h2 class="job-title">{{ job[0] }}</h2>
+                    <p><strong>Company:</strong> {{ job[2] }}</p>
+                    <p><strong>Role:</strong> {{ job[4] }}</p>
+                    <p><strong>Salary Range:</strong> {{ job[3] }}</p>
+                    <p><strong>Skills:</strong> {{ job[1] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('jobs', page=page-1, search=search) }}" class="page-link">Previous</a>
+            {% endif %}
+            <span class="page-number">Page {{ page }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('jobs', page=page+1, search=search) }}" class="page-link">Next</a>
+            {% endif %}
+        </div>        
+    </div>
+</body>
+</html>

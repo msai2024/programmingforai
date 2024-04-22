@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Matches</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Top Job Matches</h1>
+        {% if matches %}
+            <table class="matches-table">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Company</th>
+                        <th>Salary</th>
+                        <th>Role</th>
+                        <th>Similarity Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in matches %}
+                        <tr>
+                            <td>{{ match['Job Title'] }}</td>
+                            <td>{{ match['Company'] }}</td>
+                            <td>{{ match['Salary Range'] }}</td>
+                            <td>{{ match['Role'] }}</td>
+                            <td>{{ '%.2f' | format(match['Similarity Score']) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-matches">No matches found.</p>
+        {% endif %}
+        <a href="/" class="go-back">Go Back</a>
+    </div>
+</body>
+</html>
